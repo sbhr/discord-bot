@@ -18,7 +18,7 @@ bot.on('ready', () => {
 
 bot.on('messageCreate', (msg) => {
   if (msg.content.toLowerCase().indexOf('bump') > -1) {
-    const retMsg = `聞いてくれ\n${musicList[Math.floor(Math.random() * (musicList.length + 1))]}`;
+    const retMsg = `聞いてくれ\n${musicList[Math.floor(Math.random() * (musicList.length))]}`;
     bot.createMessage(msg.channel.id, retMsg);
   } else if(msg.content.indexOf('おえかき') > -1) {
     const retMsg = 'お絵かきの森はここだよ\nhttp://casual.hangame.co.jp/oekaki/index.nhn'
