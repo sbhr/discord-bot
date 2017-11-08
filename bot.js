@@ -37,4 +37,11 @@ bot.registerCommand('img', (msg, args) => _.sample(data.img), {
   description: '照れるな',
 });
 
+bot.registerCommand('bleach', (msg, args) => {
+  const d = _.sample(data.bleach);
+  return `${d.img}\n${d.poem}`;
+}, {
+  description: '俺も好きなんだよ、BLEACH',
+});
+
 bot.connect();
