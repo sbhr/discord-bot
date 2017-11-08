@@ -1,4 +1,5 @@
 const Eris = require('eris');
+const _ = require('lodash');
 const data = require('./data')();
 
 const BOT_TOKEN = process.env.BOT_TOKEN || '';
@@ -19,22 +20,16 @@ bot.on('messageCreate', (msg) => {
   }
 });
 
-bot.registerCommand('music', (msg, args) => {
-  const musicList = data.musicList;
-  console.log(musicList);
-  const retMsg = musicList[Math.floor(Math.random() * (musicList.length))];
-  return retMsg;
-}, {
+bot.registerCommand('music', (msg, args) => _.sample(data.musicList), {
   description: '俺の歌をランダムに流すよ',
   // usage: '!music と打てばわかる',
 });
 
-bot.registerCommand('message', (msg, args) => {
-  const messages = data.messages;
-  const retMsg = messages[Math.floor(Math.random() * (messages.length))];
-  return retMsg;
-}, {
+bot.registerCommand('message', (msg, args) => _.sample(data.messages), {
   description: '俺の言いたいこと、伝えたいこと',
 });
 
+bot.registerCommand('playstyle', (msg, args) => _.sample(data.playstyle), {
+  description: '俺が考えた最強の戦術',
+});
 bot.connect();
