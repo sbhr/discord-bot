@@ -32,4 +32,9 @@ bot.registerCommand('message', (msg, args) => _.sample(data.messages), {
 bot.registerCommand('playstyle', (msg, args) => _.sample(data.playstyle), {
   description: '俺が考えた最強の戦術',
 });
+
+bot.registerCommand('img', (msg, args) => _.sample(data.img), {
+  description: '照れるな',
+});
+
 bot.connect();
