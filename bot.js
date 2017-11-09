@@ -1,6 +1,7 @@
 const Eris = require('eris');
 const _ = require('lodash');
 const data = require('./data')();
+const util = require('./util');
 
 const BOT_TOKEN = process.env.BOT_TOKEN || '';
 const bot = new Eris.CommandClient(BOT_TOKEN, {}, {
@@ -18,6 +19,30 @@ bot.on('messageCreate', (msg) => {
     const retMsg = 'お絵かきの森はここだよ\nhttp://casual.hangame.co.jp/oekaki/index.nhn'
     bot.createMessage(msg.channel.id, retMsg);
   }
+});
+
+bot.on('presenceUpdate', (other, oldPresence) => {
+  const textChannel = other.guild.channels.find((channel) => channel.type === 0);
+  const userName = other.user.username;
+
+  if (!textChannel || !userName) return;
+
+  let msg;
+  if (!oldPresence.game) {
+    // ゲームが始まったとき
+    const gameName = other.game.name;
+    msg = gameName === "PLAYERUNKNOWN'S BATTLEGROUNDS" ?
+      '@everyone PUBGの時間だ' :
+      `${userName} が ${gameName}をはじめました`;
+  } else {
+    // ゲームを辞めたとき
+    const gameName = oldPresence.game.name;
+    const startTime = oldPresence.game.timestamps.start;
+    const playTime = util.sec2hour(Math.floor((new Date().getTime() - startTime) / 1000));
+    msg = `${userName} が ${oldPresence.game.name} をやめました\nプレイ時間：${playTime.hour}時間${playTime.min}分${playTime.sec}秒`;
+  }
+
+  bot.createMessage(textChannel.id, msg);
 });
 
 bot.registerCommand('music', (msg, args) => _.sample(data.musicList), {
