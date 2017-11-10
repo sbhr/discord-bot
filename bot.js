@@ -73,4 +73,16 @@ bot.registerCommand('bleach', (msg, args) => {
   description: '俺も好きなんだよ、BLEACH',
 });
 
+bot.on('voiceChannelJoin', (member, newChannel) => {
+  const textChannel = newChannel.guild.channels.find((channel) => channel.type === 0);
+  const msg = `${member.username} が通話をはじめました`;
+  bot.createMessage(textChannel.id, msg);
+});
+
+// bot.on("voiceChannelLeave", (member, oldChannel) => {
+//   const textChannel = newChannel.guild.channels.find((channel) => channel.type === 0);
+//   const msg = `${member.username} が通話をやめました`;
+//   bot.createMessage(textChannel.id, msg);
+// });
+
 bot.connect();
