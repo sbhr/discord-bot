@@ -32,7 +32,7 @@ bot.on('presenceUpdate', (other, oldPresence) => {
     // ゲームが始まったとき
     const gameName = other.game.name || '';
     if (gameName === "PLAYERUNKNOWN'S BATTLEGROUNDS") {
-      bot.createMessage(textChannel.id, '@everyone PUBGの時間だ');
+      bot.createMessage(textChannel.id, 'PUBGの時間だ');
     }
     // msg = gameName === "PLAYERUNKNOWN'S BATTLEGROUNDS" ?
     //   '@everyone PUBGの時間だ' :
@@ -43,7 +43,7 @@ bot.on('presenceUpdate', (other, oldPresence) => {
     const startTime = oldPresence.game.timestamps.start;
     const playTime = util.sec2hour(Math.floor((new Date().getTime() - startTime) / 1000));
     // msg = `${userName} が ${oldPresence.game.name} をやめました\nプレイ時間：${playTime.hour}時間${playTime.min}分${playTime.sec}秒`;
-    if (_.inRange(new Date().getHours(), 4)) {
+    if (_.inRange(new Date().getHours(), 4) || new Date().getHours() > 21) {
       msg = `<@${other.user.id}> あったかい風呂入ってあったかくして寝てください またね おやすみ バイバイ`;
       bot.createMessage(textChannel.id, msg);
     }
