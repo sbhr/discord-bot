@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>基央admin</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.3/css/bulma.min.css">
+  </head>
+  <body>
+    <section class="hero is-primary">
+      <div class="hero-body">
+        <div class="container">
+          <div class="columns is-vcentered">
+            <div class="column">
+              <p class="title">
+              Motoo bot
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h1 class="title">単語と応答を登録</h1>
+          <div class="content">
+            <form>
+              <div class="field">
+                <label class="label" for="keyword">キーワード</label>
+                  <div class="control">
+                    <input class="input" type="text" placeholder="How are you?" name="keyword" id="keyword">
+                  </div>
+              </div>
+
+              <div class="field">
+                <label class="label" for="response">レスポンス</label>
+                  <div class="control">
+                    <input class="input" type="text" placeholder="I'm fine." name="response" id="response">
+                  </div>
+              </div>
+
+              <div class="field is-grouped">
+                <div class="control">
+                  <input class="button is-primary" type="submit" value="登録">
+                </div>
+                <div class="control">
+                  <input class="button is-text" type="reset" value="リセット">
+                </div>
+              </div>
+            </form>
+          </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h1 class="title">登録済みリスト</h1>
+          <div class="content">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>id</th>
+                  <th>keyword</th>
+                  <th>response</th>
+                </tr>
+              </thead>
+              <tfoot>
+                <tr>
+                  <th>id</th>
+                  <th>keyword</th>
+                  <th>response</th>
+                </tr>
+              </tfoot>
+              <tbody>
+                <tr>
+                  <th></th>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+      </div>
+    </section>
+  </body>
+</html>
