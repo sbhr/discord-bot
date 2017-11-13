@@ -30,24 +30,32 @@
               <div class="field">
                 <label class="label" for="keyword">キーワード</label>
                   <div class="control">
-                    <input class="input" type="text" placeholder="How are you?" name="keyword" id="keyword">
+                    <input class="input" type="text" placeholder="How are you?" name="keyword" id="keyword" value="<%= post.keyword  %>">
                   </div>
+                  <% if (err.keyword) { %>
+                  <p class="help is-danger">値が入力されていません</p>
+                  <% } %>
               </div>
 
               <div class="field">
                 <label class="label" for="response">レスポンス</label>
                   <div class="control">
-                    <input class="input" type="text" placeholder="I'm fine." name="response" id="response">
+                    <input class="input" type="text" placeholder="I'm fine." name="response" id="response" value="<%= post.response %>">
                   </div>
+                  <% if (err.response) { %>
+                  <p class="help is-danger">値が入力されていません</p>
+                  <% } %>
               </div>
 
               <div class="field is-grouped">
                 <div class="control">
                   <input class="button is-primary" type="submit" value="登録">
                 </div>
+                <!--
                 <div class="control">
                   <input class="button is-text" type="reset" value="リセット">
                 </div>
+                -->
               </div>
             </form>
           </div>
