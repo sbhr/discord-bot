@@ -1,5 +1,7 @@
 const BotDb = require('../lib/bot-db');
-const botDb = new BotDb('/Users/sbhr/git/discord-bot/db/bot.db');
+
+const dbPath = process.env.DB_PATH || '';
+const botDb = new BotDb(dbPath);
 
 const getIndex = async (req, res, next) => {
 
