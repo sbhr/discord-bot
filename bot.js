@@ -23,7 +23,7 @@ bot.on('messageCreate', async (msg) => {
   words.forEach((word) => {
     if (msg.content.indexOf(word.keyword) > -1) {
       const responses = word.response.split(',');
-      const res = responses.length === 1 ? response : _.sample(responses);
+      const res = responses.length === 1 ? word.response : _.sample(responses);
       bot.createMessage(msg.channel.id, res);
     }
   });
