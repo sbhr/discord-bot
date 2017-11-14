@@ -2,6 +2,7 @@ const Eris = require('eris');
 const _ = require('lodash');
 const data = require('./data')();
 const util = require('./util');
+const BotDb = require('./lib/bot-db');
 
 const BOT_TOKEN = process.env.BOT_TOKEN || '';
 const bot = new Eris.CommandClient(BOT_TOKEN, {}, {
@@ -10,15 +11,22 @@ const bot = new Eris.CommandClient(BOT_TOKEN, {}, {
   prefix: '!',
 });
 
+const dbPath = process.env.DB_PATH || '';
+const botDb = new BotDb(dbPath);
+
 bot.on('ready', () => {
   console.log('Ready!');
 });
 
-bot.on('messageCreate', (msg) => {
-  if(msg.content.indexOf('おえかき') > -1) {
-    const retMsg = 'お絵かきの森はここだよ\nhttp://casual.hangame.co.jp/oekaki/index.nhn'
-    bot.createMessage(msg.channel.id, retMsg);
-  }
+bot.on('messageCreate', async (msg) => {
+  const words = await botDb.getAllWords();
+  words.forEach((word) => {
+    if (msg.content.indexOf(word.keyword) > -1) {
+      const responses = word.response.split(',');
+      const res = responses.length === 1 ? response : _.sample(responses);
+      bot.createMessage(msg.channel.id, res);
+    }
+  });
 });
 
 bot.on('presenceUpdate', (other, oldPresence) => {
