@@ -9,5 +9,5 @@ $ export BOT_TOKEN=<your token>
 $ node bot.js
 
 # Bot admin
-npm start
+$ npm start
 ```
