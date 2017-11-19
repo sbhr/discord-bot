@@ -38,7 +38,21 @@ const postWord = async (req, res, next) => {
   });
 };
 
+const deleteWord = async (req, res, next) => {
+  const id = req.body.id;
+  const response = req.body.response;
+
+  try {
+    await botDb.deleteWord(id);
+    res.status(200).end();
+  } catch (e){
+    res.status(500).end();
+  }
+
+};
+
 module.exports = {
   getIndex,
   postWord,
+  deleteWord,
 };
