@@ -66,47 +66,45 @@
       <div class="container">
         <h1 class="title">登録済みリスト</h1>
           <div class="content">
-            <form action="/delete" method="post">
-              <table class="table is-bordered">
-                <thead>
-                  <tr>
-                    <th>id</th>
-                    <th>keyword</th>
-                    <th>response</th>
-                    <th>edit</th>
-                  </tr>
-                </thead>
-                <!--
-                <tfoot>
-                  <tr>
-                    <th>id</th>
-                    <th>keyword</th>
-                    <th>response</th>
-                  </tr>
-                </tfoot>
-                -->
-                <tbody>
-                  <% words.forEach(function(value, key) { %>
-                  <tr>
-                    <th><%= value.id %></th>
-                    <td><%= value.keyword %></td>
-                    <td><%= value.response %></td>
-                    <td>
-                      <a class="button is-info" href="./detail?id=<%= value.id %>">更新</a>
-                      <input class="button is-danger" type="button" value="削除" onclick="postDelete(<%= value.id %>)">
-                    </td>
-                  </tr>
-                  <% }); %>
-                </tbody>
-              </table>
-            </form>
+            <table class="table is-bordered">
+              <thead>
+                <tr>
+                  <th>id</th>
+                  <th>keyword</th>
+                  <th>response</th>
+                  <th>edit</th>
+                </tr>
+              </thead>
+              <!--
+              <tfoot>
+                <tr>
+                  <th>id</th>
+                  <th>keyword</th>
+                  <th>response</th>
+                </tr>
+              </tfoot>
+              -->
+              <tbody>
+                <% words.forEach(function(value, key) { %>
+                <tr>
+                  <th><%= value.id %></th>
+                  <td><%= value.keyword %></td>
+                  <td><%= value.response %></td>
+                  <td>
+                    <a class="button is-info" href="/detail?id=<%= value.id %>">更新</a>
+                    <input class="button is-danger" type="button" value="削除" onclick="postDelete(<%= value.id %>)">
+                  </td>
+                </tr>
+                <% }); %>
+              </tbody>
+            </table>
           </div>
       </div>
     </section>
     <script>
       function postDelete(targetId) {
         if(window.confirm('削除しますか？')) {
-          fetch('./delete', {
+          fetch('/delete', {
             method: 'post',
             body: JSON.stringify({
               id: targetId,
@@ -118,7 +116,7 @@
           })
           .then((res) => {
             if (res.ok) {
-              location.reload();
+              location.href = "/";
             } else {
               window.alert('失敗しました');
             }
