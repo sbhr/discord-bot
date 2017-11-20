@@ -40,7 +40,6 @@ const postWord = async (req, res, next) => {
 
 const deleteWord = async (req, res, next) => {
   const id = req.body.id;
-  const response = req.body.response;
 
   try {
     await botDb.deleteWord(id);
@@ -51,8 +50,52 @@ const deleteWord = async (req, res, next) => {
 
 };
 
+const getDetail = async (req, res, next) => {
+  const id = req.query.id;
+  const response = req.body.response;
+
+  const word = await botDb.getWord(id);
+
+  res.render('detail', {
+    word,
+    err : {},
+  });
+};
+
+const updateWord = async (req, res, next) => {
+  const id = req.body.id;
+  const keyword = req.body.keyword;
+  const response = req.body.response;
+  const err = {};
+  const word = {};
+
+  if (keyword && response) {
+    await botDb.updateWord(id, keyword, response);
+    const words = await botDb.getAllWords();
+
+    res.render('index', {
+      words,
+      err : {},
+      post: {},
+    });
+  } else {
+    word.id = id;
+    err. keyword = !keyword;
+    err.response = !response;
+    word.keyword = keyword;
+    word.response = response;
+
+    res.render('detail', {
+      word,
+      err,
+    });
+  }
+};
+
 module.exports = {
   getIndex,
   postWord,
   deleteWord,
+  getDetail,
+  updateWord,
 };
