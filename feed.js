@@ -5,10 +5,10 @@ const moment = require('moment');
 const req = request('https://pubg.jp/feed');
 const feedparser = new FeedParser({});
 
-const webHooks = process.env.WEB_HOOKS || '';
+const webHooksUrl = process.env.WEB_HOOKS_URL || '';
 
 const options = {
-  uri: webHooks,
+  uri: webHooksUrl,
   headers: {
     "Content-type": "application/json",
   },
