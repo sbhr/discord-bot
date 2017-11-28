@@ -1,7 +1,7 @@
 const Eris = require('eris');
 const _ = require('lodash');
 const data = require('./data')();
-const util = require('./util');
+const util = require('./lib/util');
 const BotDb = require('./lib/bot-db');
 
 const BOT_TOKEN = process.env.BOT_TOKEN || '';

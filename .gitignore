@@ -58,5 +58,5 @@ typings/
 .env
 
 # Database
-.db
-.sqlite
+*.db
+*.sqlite
