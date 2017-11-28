@@ -1,6 +1,6 @@
 const Eris = require('eris');
 const _ = require('lodash');
-const data = require('./data')();
+const data = require('./lib/data')();
 const util = require('./lib/util');
 const BotDb = require('./lib/bot-db');
 
