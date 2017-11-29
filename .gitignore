@@ -60,3 +60,6 @@ typings/
 # Database
 *.db
 *.sqlite
+
+# for package
+package-lock.json
