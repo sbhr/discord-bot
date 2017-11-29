@@ -51,7 +51,8 @@ bot.on('presenceUpdate', (other, oldPresence) => {
     const startTime = oldPresence.game.timestamps.start;
     const playTime = util.sec2hour(Math.floor((new Date().getTime() - startTime) / 1000));
     // msg = `${userName} が ${oldPresence.game.name} をやめました\nプレイ時間：${playTime.hour}時間${playTime.min}分${playTime.sec}秒`;
-    if (_.inRange(new Date().getHours(), 4) || new Date().getHours() > 21) {
+    const hours = new Date().getHours();
+    if (_.inRange(hours, 4) || hours > 22) {
       msg = `<@${other.user.id}> あったかい風呂入ってあったかくして寝てください またね おやすみ バイバイ`;
       bot.createMessage(textChannel.id, msg);
     }
