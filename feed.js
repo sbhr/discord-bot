@@ -43,7 +43,7 @@ feedparser.on('readable', function () {
   while (item = stream.read()) {
     if (item.date > oneHourAgo) {
       options.json = {
-        content: `ポチンキ速報の更新情報をお届けするよ\n${item.title}\n${item.link}`,
+        content: `ポチンキ速報の更新情報をお届けするよ\n${item.link}`,
       };
       request.post(options, function(error, response, body){
         console.log(error);
