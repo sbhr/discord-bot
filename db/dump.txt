@@ -1,4 +1,0 @@
-PRAGMA foreign_keys=OFF;
-BEGIN TRANSACTION;
-CREATE TABLE words(id integer primary key autoincrement unique, keyword text not null unique, response text not null);
-COMMIT;
