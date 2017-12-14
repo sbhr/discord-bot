@@ -42,8 +42,14 @@ bot.on('presenceUpdate', async (other, oldPresence) => {
     if (gameName === "PLAYERUNKNOWN'S BATTLEGROUNDS") {
       bot.createMessage(textChannel.id, 'PUBGの時間だ');
     }
-    // ユーザテーブルに追加
-    await botDb.insertUser(other.user.id, userName);
+    try {
+      // ユーザテーブルに追加
+      // TODO: 同じユーザなら挿入しないように
+      await botDb.insertUser(other.user.id, userName);
+    } catch (err) {
+      // TODO: logging
+      console.error(err);
+    }
   } else if (oldPresence.game) {
     // ゲームを辞めたとき
     const gameName = oldPresence.game.name;
@@ -56,8 +62,13 @@ bot.on('presenceUpdate', async (other, oldPresence) => {
       msg = `<@${other.user.id}> あったかい風呂入ってあったかくして寝てください またね おやすみ バイバイ`;
       bot.createMessage(textChannel.id, msg);
     }
-    // プレイログを追加
-    await botDb.insertPlayLog(other.user.id, gameName, startTime, now, now - startTime);
+    try {
+      // プレイログを追加
+      await botDb.insertPlayLog(other.user.id, gameName, startTime, now, now - startTime);
+    } catch (err) {
+      // TODO: logging
+      console.error(err);
+    }
   }
 });
 
