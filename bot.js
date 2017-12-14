@@ -29,7 +29,7 @@ bot.on('messageCreate', async (msg) => {
   });
 });
 
-bot.on('presenceUpdate', (other, oldPresence) => {
+bot.on('presenceUpdate', async (other, oldPresence) => {
   const textChannel = other.guild.channels.find((channel) => channel.type === 0);
   const userName = other.user.username;
 
@@ -42,19 +42,32 @@ bot.on('presenceUpdate', (other, oldPresence) => {
     if (gameName === "PLAYERUNKNOWN'S BATTLEGROUNDS") {
       bot.createMessage(textChannel.id, 'PUBGの時間だ');
     }
-    // msg = gameName === "PLAYERUNKNOWN'S BATTLEGROUNDS" ?
-    //   '@everyone PUBGの時間だ' :
-    //   `${userName} が ${gameName}をはじめました`;
+    try {
+      // ユーザテーブルに追加
+      // TODO: 同じユーザなら挿入しないように
+      await botDb.insertUser(other.user.id, userName);
+    } catch (err) {
+      // TODO: logging
+      console.error(err);
+    }
   } else if (oldPresence.game) {
     // ゲームを辞めたとき
     const gameName = oldPresence.game.name;
-    const startTime = oldPresence.game.timestamps.start;
-    const playTime = util.sec2hour(Math.floor((new Date().getTime() - startTime) / 1000));
+    const startTime = Math.floor(oldPresence.game.timestamps.start / 1000);
+    const now = Math.floor(new Date().getTime() / 1000);
+    // const playTime = util.sec2hour(Math.floor((new Date().getTime() - startTime) / 1000));
     // msg = `${userName} が ${oldPresence.game.name} をやめました\nプレイ時間：${playTime.hour}時間${playTime.min}分${playTime.sec}秒`;
     const hours = new Date().getHours();
     if (_.inRange(hours, 4) || hours > 22) {
       msg = `<@${other.user.id}> あったかい風呂入ってあったかくして寝てください またね おやすみ バイバイ`;
       bot.createMessage(textChannel.id, msg);
+    }
+    try {
+      // プレイログを追加
+      await botDb.insertPlayLog(other.user.id, gameName, startTime, now, now - startTime);
+    } catch (err) {
+      // TODO: logging
+      console.error(err);
     }
   }
 });
@@ -89,7 +102,7 @@ bot.on('voiceChannelJoin', (member, newChannel) => {
 });
 
 // bot.on("voiceChannelLeave", (member, oldChannel) => {
-//   const textChannel = newChannel.guild.channels.find((channel) => channel.type === 0);
+//   const textChannel = oldChannel.guild.channels.find((channel) => channel.type === 0);
 //   const msg = `${member.username} が通話をやめました`;
 //   bot.createMessage(textChannel.id, msg);
 // });
