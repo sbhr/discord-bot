@@ -19,14 +19,16 @@ bot.on('ready', () => {
 });
 
 bot.on('messageCreate', async (msg) => {
-  const words = await botDb.getAllWords();
-  words.forEach((word) => {
-    if (msg.content.indexOf(word.keyword) > -1) {
-      const responses = word.response.split(',');
-      const res = responses.length === 1 ? word.response : _.sample(responses);
-      bot.createMessage(msg.channel.id, res);
-    }
-  });
+  if (msg.author.username !== 'motoo') {
+    const words = await botDb.getAllWords();
+    words.forEach((word) => {
+      if (msg.content.indexOf(word.keyword) > -1) {
+        const responses = word.response.split(',');
+        const res = responses.length === 1 ? word.response : _.sample(responses);
+        bot.createMessage(msg.channel.id, res);
+      }
+    });
+  }
 });
 
 bot.on('presenceUpdate', async (other, oldPresence) => {
