@@ -41,7 +41,7 @@
               <div class="field">
                 <label class="label" for="response">レスポンス</label>
                   <div class="control">
-                    <input class="input" type="text" placeholder="I'm fine." name="response" id="response" value="<%= word.response %>">
+                    <textarea class="textarea" name="response" id="response"><%= word.response %></textarea>
                   </div>
                   <% if (err.response) { %>
                   <p class="help is-danger">値が入力されていません</p>
