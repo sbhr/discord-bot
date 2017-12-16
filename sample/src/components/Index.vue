@@ -1,16 +1,14 @@
 <template>
   <div class="container">
-    <div class="row">
-      <div class="col s12">
-        <div class="col s4">
-        </div>
-      </div>
-    </div>
+    <chat-form/>
   </div>
 </template>
 
 <script>
+import ChatForm from './ChatForm.vue'
+
 export default {
+  components: { ChatForm },
   data () {
     return {
       title: 'Enquete'
