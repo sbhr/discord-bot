@@ -1,5 +1,5 @@
 <template>
-  <form>
+  <div class="section">
     <h4 class="header">登録</h4>
     <div class="row">
         <div class="input-field">
@@ -14,11 +14,10 @@
         </div>
     </div>
     <a class="btn waves-effect waves-light" @click="submit">Submit<i class="material-icons right">send</i></a>
-  </form>
+  </div>
 </template>
 
 <script>
-
 const wordTemplate = {
   keyword: '',
   response: ''
