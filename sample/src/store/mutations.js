@@ -5,12 +5,18 @@ export const state = {
 }
 
 export const actions = {
-  addWord ({ commit }, word) {
-    commit('addWord', { word })
+  async addWord ({ commit }, word) {
+    try {
+      await axios.post('http://motoo.site:3001/post', word)
+      const res = await axios.get('http://motoo.site:3001/allWords')
+      commit('setWords', { words: res.data })
+    } catch (err) {
+      console.error(err)
+    }
   },
   async fetchWords ({ commit }) {
     try {
-      const res = await axios.get('http://localhost:3001/allWords')
+      const res = await axios.get('http://motoo.site:3001/allWords')
       commit('setWords', { words: res.data })
     } catch (err) {
       console.error(err)
