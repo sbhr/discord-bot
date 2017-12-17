@@ -10,7 +10,7 @@
   "license": "ISC",
   "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
     "eris": "^0.8.1",
