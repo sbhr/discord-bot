@@ -16,6 +16,9 @@ module.exports = {
     'html'
   ],
   // add your custom rules here
+  globals: {
+    'Materialize': true
+  },
   rules: {
     // allow async-await
     'generator-star-spacing': 'off',

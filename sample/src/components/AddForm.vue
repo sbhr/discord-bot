@@ -1,6 +1,5 @@
 <template>
-  <div class="section">
-    <h4 class="header">登録</h4>
+  <div class="container">
     <div class="row">
         <div class="input-field">
           <input id="keyword" type="text" v-model="word.keyword" class="validate">
@@ -34,7 +33,14 @@ export default {
   },
   methods: {
     submit () {
-      this.$store.dispatch('addWord', this.word)
+      if (this.word.keyword && this.word.response) {
+        this.$store.dispatch('addWord', this.word)
+        this.word = Object.assign({}, wordTemplate)
+        this.$router.push('/')
+        Materialize.toast('Registration succeeded', 2000)
+      } else {
+        Materialize.toast('Registration failed', 2000)
+      }
     }
   }
 }

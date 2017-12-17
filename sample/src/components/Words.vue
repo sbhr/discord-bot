@@ -14,6 +14,11 @@
         </tr>
       </tbody>
     </table>
+    <div class="fixed-action-btn">
+      <router-link to="/add" class="btn-floating btn-large red">
+        <i class="large material-icons">add</i>
+      </router-link>
+    </div>
   </div>
 </template>
 
