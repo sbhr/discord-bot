@@ -18,11 +18,11 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   computed: {
-    words () {
-      return this.$store.state.words
-    }
+    ...mapGetters(['words'])
   }
 }
 </script>

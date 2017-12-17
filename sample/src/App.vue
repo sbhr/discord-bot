@@ -10,6 +10,9 @@ import AppHeader from './components/AppHeader'
 
 export default {
   name: 'app',
-  components: { AppHeader }
+  components: { AppHeader },
+  created () {
+    this.$store.dispatch('fetchWords')
+  }
 }
 </script>
