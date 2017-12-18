@@ -12,7 +12,23 @@
           <label for="response">Response</label>
         </div>
     </div>
-    <a class="btn waves-effect waves-light" @click="update">Update<i class="material-icons right">update</i></a>
+    <div class="row">
+      <div class="col s6">
+        <a class="btn waves-effect waves-light" @click="update">Update<i class="material-icons right">update</i></a>
+      </div>
+      <div class="col s6 right-align">
+        <a class="waves-effect waves-light red btn modal-trigger" href="#checkModal">Delete<i class="material-icons right">delete</i></a>
+      </div>
+    </div>
+    <div id="checkModal" class="modal">
+      <div class="modal-content center-align">
+        <p class="flow-text">Are you sure you want to delete this word?</p>
+      </div>
+      <div class="modal-footer">
+        <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat">Disagree</a>
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" @click="deleteWord">Agree</a>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -34,6 +50,9 @@ export default {
   },
   mounted () {
     Materialize.updateTextFields()
+    $(document).ready(function () {
+      $('.modal').modal()
+    })
   },
   methods: {
     update () {
@@ -44,6 +63,11 @@ export default {
       } else {
         Materialize.toast('Update failed', 2000)
       }
+    },
+    deleteWord () {
+      this.$store.dispatch('deleteWord', this.word.id)
+      this.$router.push('/')
+      Materialize.toast('Delete succeeded', 2000)
     }
   }
 }

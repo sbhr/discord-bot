@@ -17,7 +17,8 @@ module.exports = {
   ],
   // add your custom rules here
   globals: {
-    'Materialize': true
+    'Materialize': true,
+    '$': true
   },
   rules: {
     // allow async-await

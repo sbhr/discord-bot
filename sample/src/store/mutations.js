@@ -23,6 +23,15 @@ export const actions = {
       console.error(err)
     }
   },
+  async deleteWord ({ commit }, id) {
+    try {
+      await axios.post('http://motoo.site:3001/delete', { id })
+      const res = await axios.get('http://motoo.site:3001/allWords')
+      commit('setWords', { words: res.data })
+    } catch (err) {
+      console.error(err)
+    }
+  },
   async fetchWords ({ commit }) {
     try {
       const res = await axios.get('http://motoo.site:3001/allWords')
