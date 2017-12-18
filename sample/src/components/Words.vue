@@ -13,10 +13,9 @@
           <td nowrap>{{ word.keyword }}</td>
           <td @mouseover="showButton">{{ word.response }}</td>
           <td>
-            <router-link :to="{ name: 'updateForm', params: { id: word.id }}" v-if="selected == index" class="btn-floating waves-effect waves-light">
+            <router-link :to="{ name: 'updateForm', params: { id: word.id }}" :class="{ 'btn-floating': true, 'waves-effect': true, 'waves-light': true, 'scale-transition': true, 'scale-out': selected !== index, 'scale-in': selected === index }">
               <i class="material-icons">edit</i>
             </router-link>
-            <span v-else>    </span>
           </td>
         </tr>
       </tbody>
