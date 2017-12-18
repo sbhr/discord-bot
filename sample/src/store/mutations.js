@@ -1,5 +1,7 @@
 import axios from 'axios'
 
+const API_URL = 'localhost:3000'
+
 export const state = {
   words: []
 }
@@ -7,7 +9,7 @@ export const state = {
 export const actions = {
   async addWord ({ commit }, word) {
     try {
-      await axios.post('http://motoo.site:3001/post', word)
+      await axios.post(`http://${API_URL}/post`, word)
       const res = await axios.get('http://motoo.site:3001/allWords')
       commit('setWords', { words: res.data })
     } catch (err) {
@@ -16,7 +18,7 @@ export const actions = {
   },
   async updateWord ({ commit }, word) {
     try {
-      await axios.post('http://motoo.site:3001/update', word)
+      await axios.post(`http://${API_URL}/update`, word)
       const res = await axios.get('http://motoo.site:3001/allWords')
       commit('setWords', { words: res.data })
     } catch (err) {
@@ -25,7 +27,7 @@ export const actions = {
   },
   async deleteWord ({ commit }, id) {
     try {
-      await axios.post('http://motoo.site:3001/delete', { id })
+      await axios.post(`http://${API_URL}/delete`, { id })
       const res = await axios.get('http://motoo.site:3001/allWords')
       commit('setWords', { words: res.data })
     } catch (err) {
