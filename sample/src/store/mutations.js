@@ -14,6 +14,15 @@ export const actions = {
       console.error(err)
     }
   },
+  async updateWord ({ commit }, word) {
+    try {
+      await axios.post('http://motoo.site:3001/update', word)
+      const res = await axios.get('http://motoo.site:3001/allWords')
+      commit('setWords', { words: res.data })
+    } catch (err) {
+      console.error(err)
+    }
+  },
   async fetchWords ({ commit }) {
     try {
       const res = await axios.get('http://motoo.site:3001/allWords')
@@ -25,9 +34,6 @@ export const actions = {
 }
 
 export const mutations = {
-  addWord (state, { word }) {
-    state.words.push(word)
-  },
   setWords (state, { words }) {
     state.words = words
   }
