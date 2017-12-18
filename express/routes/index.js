@@ -4,8 +4,8 @@ const router = express.Router();
 const index = require('../controllers/index');
 
 /* GET home page. */
-router.get('/', index.getIndex);
-router.get('/detail', index.getDetail);
+router.get('/allWords', index.getAllWords);
+router.get('/word', index.getWord);
 
 router.post('/post', index.postWord);
 router.post('/delete', index.deleteWord);
