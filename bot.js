@@ -1,7 +1,7 @@
 const Eris = require('eris');
 const _ = require('lodash');
+const moment = require('moment');
 const data = require('./lib/data')();
-const util = require('./lib/util');
 const BotDb = require('./lib/bot-db');
 
 const BOT_TOKEN = process.env.BOT_TOKEN || '';
@@ -34,14 +34,25 @@ bot.on('messageCreate', async (msg) => {
 bot.on('presenceUpdate', async (other, oldPresence) => {
   const textChannel = other.guild.channels.find((channel) => channel.type === 0);
   const userName = other.user.username;
+  const messages = await bot.getMessages(textChannel.id, 10);
+  const oneHourAgo = moment().subtract(1, 'hour').format('X');
 
   if (!textChannel || !userName) return;
 
   let msg;
-  if (other.game) {
-    // ゲームが始まったとき
+  if (other.game) { // ゲームが始まったとき
     const gameName = other.game.name || '';
-    if (gameName === "PLAYERUNKNOWN'S BATTLEGROUNDS") {
+
+    // １時間以内にPUBGの発言をしたかどうか
+    const doneAnnounce = _
+      .chain(messages)
+      .filter({
+        author: { username: 'motoo' },
+        content: 'PUBGの時間だ',
+      })
+      .filter(msg => Math.floor(msg.timestamp / 1000) > oneHourAgo)
+      .value().length;
+    if (!doneAnnounce && gameName === "PLAYERUNKNOWN'S BATTLEGROUNDS") {
       bot.createMessage(textChannel.id, 'PUBGの時間だ');
     }
     try {
@@ -52,15 +63,20 @@ bot.on('presenceUpdate', async (other, oldPresence) => {
       // TODO: logging
       console.error(err);
     }
-  } else if (oldPresence.game) {
-    // ゲームを辞めたとき
+  } else if (oldPresence.game) { // ゲームを辞めたとき
     const gameName = oldPresence.game.name;
     const startTime = Math.floor(oldPresence.game.timestamps.start / 1000);
-    const now = Math.floor(new Date().getTime() / 1000);
-    // const playTime = util.sec2hour(Math.floor((new Date().getTime() - startTime) / 1000));
-    // msg = `${userName} が ${oldPresence.game.name} をやめました\nプレイ時間：${playTime.hour}時間${playTime.min}分${playTime.sec}秒`;
-    const hours = new Date().getHours();
-    if (_.inRange(hours, 4) || hours > 22) {
+    const now = moment().format('X');
+    msg = `<@${other.user.id}> あったかい風呂入ってあったかくして寝てください またね おやすみ バイバイ`;
+    const doneOyasumi = _
+      .chain(messages)
+      .filter({
+        content: msg,
+      })
+      .filter(msg => Math.floor(msg.timestamp / 1000) > oneHourAgo)
+      .value().length;
+    const hour = moment().format('H');
+    if (!doneOyasumi && (_.inRange(hour, 4) || hour > 22)) {
       msg = `<@${other.user.id}> あったかい風呂入ってあったかくして寝てください またね おやすみ バイバイ`;
       bot.createMessage(textChannel.id, msg);
     }
