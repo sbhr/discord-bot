@@ -1,0 +1,30 @@
+{
+  "name": "discord-bot",
+  "version": "0.0.1",
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sbhr/discord-bot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "body-parser": "~1.18.2",
+    "cookie-parser": "~1.4.3",
+    "cors": "^2.8.4",
+    "debug": "~2.6.9",
+    "ejs": "~2.5.7",
+    "express": "~4.15.5",
+    "forever": "^0.15.3",
+    "lodash": "^4.17.4",
+    "moment": "^2.19.2",
+    "morgan": "~1.9.0",
+    "serve-favicon": "~2.4.5",
+    "sqlite3": "^3.1.13"
+  }
+}
