@@ -16,10 +16,10 @@
     "eris": "^0.8.1",
     "feedparser": "^2.2.4",
     "forever": "^0.15.3",
-    "lodash": "^4.17.4",
-    "moment": "^2.19.2",
-    "request": "^2.83.0",
-    "sqlite3": "^3.1.13"
+    "lodash": "^4.17.10",
+    "moment": "^2.22.2",
+    "request": "^2.87.0",
+    "sqlite3": "^4.0.1"
   },
   "devDependencies": {
     "eslint": "^5.0.0",
